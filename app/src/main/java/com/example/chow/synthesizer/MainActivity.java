@@ -6,9 +6,10 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.media.ToneGenerator.MAX_VOLUME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -527,7 +528,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void play(Song s)
     {
-        Toast.makeText(this, "hey2", Toast.LENGTH_SHORT).show();
         int beat = 1, interval = 1;
         ArrayList<Note> accompaniment = s.getAccompaniment(), melody = s.getMelody();
         while (accompaniment.size() > 0 || accompaniment.size() > 0) {
@@ -535,7 +535,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (note.getInterval() == interval && note.getBeat() == beat) {
                     accompaniment.remove(note);
                     player = MediaPlayer.create(this, note.getResourceID());
-                    //player.setVolume((float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)));
+                    player.setVolume((float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)));
                     player.seekTo(0);
                     player.start();
                 }
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (note.getInterval() == interval && note.getBeat() == beat) {
                     accompaniment.remove(note);
                     player = MediaPlayer.create(this, note.getResourceID());
-                    //player.setVolume((float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)));
+                    player.setVolume((float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)));
                     player.seekTo(0);
                     player.start();
                 }
