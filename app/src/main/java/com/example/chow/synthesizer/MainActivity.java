@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import static android.media.ToneGenerator.MAX_VOLUME;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button aButton, asButton, bButton, cButton, csButton, dButton, dsButton, eButton, fButton, fsButton, gButton, gsbutton, aButtonHigh, asButtonHigh, bButtonHigh, cButtonHigh, csButtonHigh, dButtonHigh, dsButtonHigh, eButtonHigh, fButtonHigh, fsButtonHigh, gButtonHigh, gsbuttonHigh;
@@ -521,8 +519,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void playWetHands(View view) {
-        WetHands song = new WetHands();
-        song.play(this);
+        play(new WetHands());
     }
 
     private void play(Song s)
@@ -533,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(note.getInterval() == interval && note.getBeat() == beat)
             {
                 player = MediaPlayer.create(this, note.getResourceID());
-                player.setVolume((float)(Math.log(MAX_VOLUME - accompanimentVolume)/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - accompanimentVolume)/Math.log(MAX_VOLUME)));
+                //player.setVolume((float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)));
                 player.seekTo(0);
                 player.start();
             }
@@ -543,7 +540,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(note.getInterval() == interval && note.getBeat() == beat)
             {
                 player = MediaPlayer.create(this, note.getResourceID());
-                player.setVolume((float)(Math.log(MAX_VOLUME - melodyVolume)/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - melodyVolume)/Math.log(MAX_VOLUME)));
+                //player.setVolume((float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)));
                 player.seekTo(0);
                 player.start();
             }
@@ -556,7 +553,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             beat++;
         }
         try {
-            Thread.sleep(MILLIS_PER_BEAT);
+            Thread.sleep(s.getMILLIS_PER_BEAT());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
