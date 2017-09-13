@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void play(Song s)
     {
-        Toast.makeText(this, "hey1", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "hey2", Toast.LENGTH_SHORT).show();
         int beat = 1, interval = 1;
         ArrayList<Note> accompaniment = s.getAccompaniment(), melody = s.getMelody();
         while (accompaniment.size() > 0 || accompaniment.size() > 0) {
