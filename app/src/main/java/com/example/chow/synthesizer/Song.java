@@ -31,6 +31,9 @@ public abstract class Song {
         MILLIS_PER_BEAT = MILLIS_PER_MIN / tempo * topTimeSignature / beatsPerInterval;
         melody = new ArrayList<Note>();
         accompaniment = new ArrayList<Note>();
+        //notes
+        setMelody();
+        setAccompaniment();
     }
 
     public void setVolume(int newMelodyVolume, int newAccompanimentVolume)
@@ -41,12 +44,28 @@ public abstract class Song {
 
     public ArrayList<Note> getAccompaniment()
     {
-        return accompaniment;
+        return new ArrayList<Note>(accompaniment);
     }
 
     public ArrayList<Note> getMelody()
     {
-        return melody;
+        return new ArrayList<Note>(melody);
+    }
+
+    public int getAccompanimentVolume() {
+        return accompanimentVolume;
+    }
+
+    public int getMelodyVolume() {
+        return melodyVolume;
+    }
+
+    public int getBeatsPerInterval() {
+        return beatsPerInterval;
+    }
+
+    public long getMILLIS_PER_BEAT() {
+        return MILLIS_PER_BEAT;
     }
 
     public abstract void setMelody();

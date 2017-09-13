@@ -22,7 +22,7 @@ public class WetHands extends Song {
     @Override
     public void setAccompaniment() {
         accompaniment = new ArrayList<Note>();
-        accompaniment.add(new Note(1, 1, R.raw.scalea));
+        accompaniment.add(new Note(1, 1, R.raw.note25));
         accompaniment.add(new Note(1, 2, R.raw.note32));
         accompaniment.add(new Note(1, 3, R.raw.note37));
         accompaniment.add(new Note(1, 4, R.raw.note39));

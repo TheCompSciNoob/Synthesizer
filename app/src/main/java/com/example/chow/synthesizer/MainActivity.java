@@ -6,6 +6,9 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -524,38 +527,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void play(Song s)
     {
+        Toast.makeText(this, "hey1", Toast.LENGTH_SHORT).show();
         int beat = 1, interval = 1;
-        for (Note note: s.getAccompaniment())
-        {
-            if(note.getInterval() == interval && note.getBeat() == beat)
-            {
-                player = MediaPlayer.create(this, note.getResourceID());
-                //player.setVolume((float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)));
-                player.seekTo(0);
-                player.start();
+        ArrayList<Note> accompaniment = s.getAccompaniment(), melody = s.getMelody();
+        while (accompaniment.size() > 0 || accompaniment.size() > 0) {
+            for (Note note : s.getAccompaniment()) {
+                if (note.getInterval() == interval && note.getBeat() == beat) {
+                    accompaniment.remove(note);
+                    player = MediaPlayer.create(this, note.getResourceID());
+                    //player.setVolume((float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getAccompanimentVolume())/Math.log(MAX_VOLUME)));
+                    player.seekTo(0);
+                    player.start();
+                }
             }
-        }
-        for (Note note: s.getMelody())
-        {
-            if(note.getInterval() == interval && note.getBeat() == beat)
-            {
-                player = MediaPlayer.create(this, note.getResourceID());
-                //player.setVolume((float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)));
-                player.seekTo(0);
-                player.start();
+            for (Note note : s.getMelody()) {
+                if (note.getInterval() == interval && note.getBeat() == beat) {
+                    accompaniment.remove(note);
+                    player = MediaPlayer.create(this, note.getResourceID());
+                    //player.setVolume((float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)), (float)(Math.log(MAX_VOLUME - s.getMelodyVolume())/Math.log(MAX_VOLUME)));
+                    player.seekTo(0);
+                    player.start();
+                }
             }
-        }
-        if (beat == s.getBeatsPerInterval()){
-            beat = 1;
-            interval++;
-        }
-        else{
-            beat++;
-        }
-        try {
-            Thread.sleep(s.getMILLIS_PER_BEAT());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            if (beat == s.getBeatsPerInterval()) {
+                beat = 1;
+                interval++;
+            } else {
+                beat++;
+            }
+            try {
+                Thread.sleep(s.getMILLIS_PER_BEAT());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
